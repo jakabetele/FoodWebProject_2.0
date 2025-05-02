@@ -4,41 +4,30 @@ import random
 
 import math
 
-import FoodNet
-import Map
-
 import warnings
 warnings.filterwarnings("ignore")
 
 class Animal(object):
 
-    def __init__(self, species_name: str, species_type: int,
-                 initial_position: tuple, initial_energy: float, 
-                 life_time: tuple, maturity: tuple, fertility: tuple, min_energy_to_bread: int,
-                 mobility: tuple, unit_energy_consumption: float, 
-                 fight_stats: tuple, fight_costs: tuple,
-                 foodnet: FoodNet.FoodNet, map: Map.Map):
+    def __init__(self, config_obj : dict):
         
-        self.species_name = species_name
-        self.species_type = species_type
+        self.species_name = config_obj["species_name"]
+        self.species_type = config_obj["species_type"]
 
-        self.position = initial_position
-        self.energy = initial_energy
+        self.position = config_obj["initial_position"]
+        self.energy = config_obj["initial_energy"]
 
-        self.life_time = life_time
-        self.maturity = maturity
-        self.fertility = fertility
-        self.min_energy_to_bread = min_energy_to_bread
+        self.life_expectancy = config_obj["life_expectancy"]
+        self.maturity = config_obj["maturity"]
+        self.fertility = config_obj["fertility"]
+        self.min_energy_to_bread = config_obj["min_energy_to_bread"]
 
-        self.mobility = mobility
-        self.unit_energy_consumption = unit_energy_consumption
+        self.mobility = config_obj["mobility"]
+        self.unit_energy_consumption = config_obj["unit_energy_consumption"]
         
-        self.fight_stats = fight_stats
-        self.fight_costs = fight_costs
+        self.fight_stat = config_obj["fight_stat"]
+        self.fight_costs = config_obj["fight_costs"]
         
-        self.foodnet = foodnet
-        self.map = map
-
         self.alive = True
 
     def genarate_random_distance(self) -> float:
