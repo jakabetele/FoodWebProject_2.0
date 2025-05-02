@@ -4,8 +4,6 @@ import random
 
 import math
 
-import Animal
-
 import warnings
 warnings.filterwarnings("ignore")
 
