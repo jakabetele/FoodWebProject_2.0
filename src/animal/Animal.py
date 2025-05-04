@@ -9,12 +9,13 @@ warnings.filterwarnings("ignore")
 
 class Animal(object):
 
-    def __init__(self, config_obj : dict):
+    def __init__(self, map_size_x: int, map_size_y: int, config_obj : dict):
         
         self.species_name = config_obj["species_name"]
         self.species_type = config_obj["species_type"]
 
-        self.position = config_obj["initial_position"]
+        self.position = (int(random.random() * map_size_x), 
+                         int(random.random() * map_size_y))
         self.energy = config_obj["initial_energy"]
 
         self.life_expectancy = config_obj["life_expectancy"]

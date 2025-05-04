@@ -1,42 +1,29 @@
-import numpy as np
-
-import random
-
-import math
-
 import warnings
 warnings.filterwarnings("ignore")
 
 class Map(object):
-    def __init__(self, size_x, size_y):
-        self.size_x = size_x
-        self.size_y = size_y
+    def __init__(self, map_config_obj: dict):
+        
+        self.size_x = map_config_obj["size_x"]
+        self.size_y = map_config_obj["size_y"]
 
-        self.field = [[[] for y in self.size_y] for x in self.size_x]
+        height = map_config_obj["layers"]["height"]
+        type = map_config_obj["layers"]["type"]
+        nutrition = map_config_obj["layers"]["nutrition"]
+        regeneration = map_config_obj["layers"]["regeneration"]
+
+        self.field = []
+        for height_row, type_row, nutrition_row, regeneration_row in zip(height, type, nutrition, regeneration):
+            field_row = []
+
+            for h, t, n, r in zip(height_row, type_row, nutrition_row, regeneration_row):
+                field_row.append([[h, t, n, r], [n]])
+            
+            self.field.append(field_row)
     
-    def add_animal(self, animal: Animal):
-        x = animal.position[0]
-        y = animal.position[1]
-        
-        self.field[x][y].append(animal)
-
-    def get_animal_cel_pos(self, animal: Animal, x: int, y: int):
-        for i, anim in enumerate(self.field[x][y]):
-            if anim == animal:
-                return i
-        
-        return False
-        
-    def delete_animal(self, animal: Animal):
-        x = animal.position[0]
-        y = animal.position[1]
-        pos = self.get_animal_cel_pos(self, animal, x, y)
-
-        if pos != False:            
-            self.field[x][y] = self.field[x][y][:pos] + self.field[x][y][pos + 1:]
-            return True
-        
-        return False
-    
-    def get_all_animals(self, x, y):
-        return self.field[x][y]
+    def regenare_grass(self):
+        for x in range(self.size_x):
+            for y in range(self.size_y):
+                if self.field[x][y][1][0] < self.field[x][y][0][2]:
+                    self.field[x][y][1][0] += self.field[x][y][0][3]
+                    
