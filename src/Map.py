@@ -17,13 +17,14 @@ class Map(object):
             field_row = []
 
             for h, t, n, r in zip(height_row, type_row, nutrition_row, regeneration_row):
-                field_row.append([[h, t, n, r], [n]])
+                field_row.append([[h, t, n, r]])
             
             self.field.append(field_row)
     
     def regenare_grass(self):
+
         for x in range(self.size_x):
             for y in range(self.size_y):
-                if self.field[x][y][1][0] < self.field[x][y][0][2]:
-                    self.field[x][y][1][0] += self.field[x][y][0][3]
+                if self.field[x][y][1] == 'grass':
+                    self.field[x][y][2] = min(self.field[x][y][2] + self.field[x][y][3], 1)
                     

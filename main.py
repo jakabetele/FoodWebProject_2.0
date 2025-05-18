@@ -5,7 +5,7 @@ from config_dir.map_config import map_config_obj
 from config_dir.config_obj import animals_config_obj
 
 from src.Map import Map
-from src.animal.Animal import Animal
+from Animal import Animal
 
 #from src.Simulation import Simulation
 
