@@ -18,12 +18,14 @@ class Simulation():
     def __init__(self,
                  map: Map,
                  foodnet: dict,
+                 species_all: dict,
                  list_of_animals_all : list[Animal],
                  simulation_config_obj: dict):
 
         
         self.map = map
         self.foodnet = foodnet
+        self.species_all = species_all
         self.list_of_animals_all = list_of_animals_all
 
         self.simulation_steps = simulation_config_obj['simulation_steps']
@@ -37,9 +39,9 @@ class Simulation():
         self.interaction_map = [[[] for j in range(self.map.size_y)] for i in range(self.map.size_x)]
     
     def animal_interaction(self, animal_a: Animal, animal_b: Animal):
-        if animal_b.species_name in self.foodnet[animal_a.species_name]: # animal_b is a pray animal of animal_a
+        if animal_b.species in self.foodnet[animal_a.species]: # animal_b is a pray animal of animal_a
                 animal_a.hunt(animal_b)
-        elif animal_a.species_name in self.foodnet[animal_b.species_name]: # animal_a is a pray animal of animal_b
+        elif animal_a.species in self.foodnet[animal_b.species]: # animal_a is a pray animal of animal_b
                 animal_b.hunt(animal_a)
         else:
             pass
@@ -104,7 +106,7 @@ class Simulation():
                 nr_offsprings = animal.bread()
                 pos = animal.get_pos()
                 for j in range(nr_offsprings):
-                    offspring = Animal(animal)
+                    offspring = Animal(self.species_all[animal.species])
                     offspring.position = pos
                     new_born_all.append(offspring)
             else:
