@@ -1,3 +1,20 @@
+import numpy as np
+import pandas as pd
+
+import random
+
+import matplotlib.pyplot as plt
+
+def generate_map(df_map_state):
+
+    fig, ax = plt.subplots(2, 1, figsize=(10, 12), gridspec_kw={'height_ratios': [3, 1]})
+    fig.tight_layout()
+
+    
+
+    plt.show()
+
+
 def gen_map():
     with open("map_config.py", "a") as f:
         map_config = {}
